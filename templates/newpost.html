@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="col-md-12">
+      <form method="post">
+      <div class="col-md-12">
+        <h1 class="text-center">Article</h1>
+      </div>
+      <div class="col-md-12">
+          <div class="col-md-6 text-center">
+            <label>
+                <span><h1>Subject</h1></span>
+            </label>
+          </div>
+          <div class="col-md-11">
+                  <input class="center-block subject" type="text" name="subject" value="{{subject}}">
+          </div>
+      </div>
+      <div class="col-md-12">
+          <div class="col-md-6 text-center">
+              <label>
+                  <span><h1>Content</h1></span>
+              </label>
+          </div>
+          <div class="col-md-12">
+              <textarea class="center-block" name="content">{{content}}</textarea>
+          </div>
+      </div>
+
+      <div class="col-md-12 text-center error">{{error}}</div>
+      <div class="col-md-12">
+          <button class="center-block" type="submit">Submit</button>
+      </div>
+
+      </form>
+    </div>
+
+{% endblock %}

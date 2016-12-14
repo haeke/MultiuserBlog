@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-12">
+    <div class="col-md-12 text-center">
+        <h1>Edit comment</h1>
+    </div>
+    <div class="col-md-12">
+        <form method="post">
+            <input type="hidden" id="post_id" value="{{post_id}}">
+
+            <div class="col-md-12">
+                <label>Comment: </label>
+                <input type="text" id="comment" name="comment" value="{{comment}}">
+            </div>
+
+            {% if error %}
+                <span>{{error}}</span>
+            {% endif %}
+
+            <button class="" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

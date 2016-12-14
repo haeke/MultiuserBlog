@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="col-md-12">
+        <div class="col-md-12 text-center">
+            <h1> Multiuser Blog</h1>
+        </div>
+        {% if deleted_post_id %}
+            Post Deleted
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        {% for p in posts %}
+            {% if p.key().id()|string != deleted_post_id|string %}
+        <div class="col-md-12">
+                {{ p.render() | safe }}
+        </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

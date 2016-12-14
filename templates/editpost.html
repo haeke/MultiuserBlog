@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="col-md-12 text-center">
+        <h1>Edit Post</h1>
+    </div>
+    <div class="col-md-12">
+        <form method="post">
+            <input type="hidden" name="post_id" value="{{post_id}}">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" value="{{subject}}">
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="content">Post Content:</label>
+                    </div>
+                    <div class="col-md-12">
+                        <textarea name="content" id="content" value="{{content}}"
+                              cols="30" rows="10">{{content}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            {% if error %}
+            <div class="form-group">
+                <span></span>
+                {{error}}
+            </div>
+            {% endif %}
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}

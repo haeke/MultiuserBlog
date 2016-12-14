@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-7">
+        {% if error %}
+            {{error}}
+        {% endif %}
+    </div>
+    <div class="col-md-12 text-center">
+        <h1>Post</h1>
+         <a href="/blog/deletepost/{{post.key().id()}}">Delete</a>
+         <a href="/blog/editpost/{{post.key().id()}}">Edit</a>
+    </div>
+</div>
+    {{post.render() | safe}}
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <form method="post">
+            <input type="hidden" id="like" name="like" value="update">
+            <button class="center-block" type="submit">Like {{noOfLikes}}</button>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <form method="post">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label>Comment: </label>
+                </div>
+                <div class="col-md-12">
+                    <textarea class="col-md-12" name="comment" id="comment"
+                              value="" cols="100%" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button class="center-block" type="submit">Submit</button>
+            </div>
+
+        </form>
+    </div>
+    <!--<div class="col-md-12">-->
+        <!--{% for c in comments %}-->
+        <!--<blockquote>-->
+            <!--<a href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>-->
+            <!--<a href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>-->
+            <!--<p>{{ c.comment }}</p>-->
+            <!--<footer>{{ c.getusername() }}</footer>-->
+        <!--</blockquote>-->
+        <!--{% endfor %}-->
+    <!--</div>-->
+</div>
+{% endblock %}

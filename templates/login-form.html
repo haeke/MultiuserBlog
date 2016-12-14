@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/static/main.css">
+        <title>Login</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-12">
+                <form class="col-md-12" method="post">
+                    <div class="col-md-12">
+                        <h1 class="text-center">Login</h1>
+                        <hr/>
+                        <div class="col-md-12">
+                           <div class="col-md-12 text-center">
+                               <label>
+                                <span>Username</span>
+                                <input type="text" name="username" value="{{username}}">
+                            </label>
+                           </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 text-center">
+                                <label>
+                                    <span>Password</span>
+                                    <input type="password" name="password" value="{{password}}" >
+                                </label>
+                                <div class="col-md-12">
+                            <div class="col-md-12">
+                                <button class="center-block" type="submit">Log in</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <a class="center-block" href="/signup">Create an Account</a>
+                        </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="error col-md-12 text-center">
+                                <label>
+                                    {{error}}
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--<div class="container">-->
+            <!--<form class="form-class" method="post">-->
+                <!--<div class="form-white-background">-->
+                    <!--<div class="form-title-row">-->
+                        <!--<h1>Login</h1>-->
+                        <!--<hr />-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<label>-->
+                            <!--<span>Username</span>-->
+                            <!--<input type="text" name="username" value="{{username}}">-->
+                        <!--</label>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<label>-->
+                            <!--<span>Password</span>-->
+                            <!--<input type="password" name="password" value="{{password}}">-->
+                        <!--</label>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-row text-center error">-->
+                        <!--{{error}}-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<button type="submit">Log in</button>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<a href="/signup">Sign up with an Account</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+
+    </body>
+</html>

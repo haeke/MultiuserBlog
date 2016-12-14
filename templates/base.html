@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/static/main.css">
+        <title>CS 253 Blog</title>
+</head>
+
+    <body class="col-md-12">
+        <div class="col-md-6 text-center">
+           <a href="/" >CS 253 Blog</a>
+        </div>
+        <div class="col-md-3 text-center">
+           <a href="/blog/newpost" class="main-title">New Article</a>
+        </div>
+        <div class="col-md-3 text-center">
+           {% if user %}
+            {{user.name}} (<a href="/logout" class="main-title">Logout</a>)
+           {% else %}
+            <div class="col-md-6">
+                <a href="/login">Login</a>
+            </div>
+            <div class="col-md-6">
+                <a href="/signup" class="main-title">Sign up</a>
+            </div>
+           {% endif %}
+        </div>
+            {% block content %}
+            {% endblock %}
+    </body>
+</html>
