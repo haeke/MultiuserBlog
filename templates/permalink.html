@@ -39,15 +39,15 @@
 
         </form>
     </div>
-    <!--<div class="col-md-12">-->
-        <!--{% for c in comments %}-->
-        <!--<blockquote>-->
-            <!--<a href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>-->
-            <!--<a href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>-->
-            <!--<p>{{ c.comment }}</p>-->
-            <!--<footer>{{ c.getusername() }}</footer>-->
-        <!--</blockquote>-->
-        <!--{% endfor %}-->
-    <!--</div>-->
+    <div class="col-md-12">
+        {% for c in comments %}
+        <blockquote>
+            <a href="/blog/deletecomment/{{post.key().id()}}/{{c.key().id()}}">Delete</a>
+            <a href="/blog/editcomment/{{post.key().id()}}/{{c.key().id()}}">Edit</a>
+            <p>{{ c.comment }}</p>
+            <footer>{{ c.getusername() }}</footer>
+        </blockquote>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

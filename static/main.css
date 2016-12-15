@@ -36,46 +36,6 @@ div {
       width: 60%
 }
 
-.form-login {
-    padding-left: 200px;
-    margin: 20px;
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto;
-    font: bold 14px sans-serif;
-    text-align:center;
-}
-
-.form-white-background {
-    width: 1000px;
-    box-sizing: border-box;
-    background-color: #FFFFFF;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0.1);
-    padding: 60px 80px;
-    margin-bottom: 32px;
-}
-
-.form-title-row {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.form-row{
-    text-align: left;
-    margin-left: 240px;
-    margin-bottom: 23px;
-}
-
-.form-row > label span {
-    display: inline-block;
-    box-sizing: border-box;
-    color: #5f5f5f;
-    width: 125px;
-    text-align: right;
-    padding-right: 25px;
-}
-
-
 button {
     display: block;
     border-radius: 2px;
@@ -85,29 +45,4 @@ button {
     border: 0;
     margin: 20px 0px 10px 150px;
     cursor: pointer;
-}
-
-.post + .post {
-    margin-top: 15px;
-}
-
-.post-heading {
-    position: relative;
-    border-bottom: 3px solid #666;
-}
-
-.post-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.post-date {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    color: #999;
-}
-
-.post-content {
-    margin-top: 5px;
 }

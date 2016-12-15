@@ -183,7 +183,7 @@ class PostPage(BlogHandler):
         post = db.get(key)
 
         comments = db.GqlQuery("select * from Comment where post_id = " +
-                               post_id + " order by created desc")
+                               post_id)
 
         likes = db.GqlQuery("select * from Like where post_id=" + post_id)
 
@@ -339,7 +339,7 @@ class EditComment(BlogHandler):
     def get(self, post_id, comment_id):
         if self.user:
             key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
-            c1 = db.key(key)
+            c1 = db.get(key)
             if c1.user_id == self.user.key().id():
                 self.render("editcomment.html", comment=c1.comment)
             else:
