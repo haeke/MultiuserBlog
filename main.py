@@ -252,7 +252,7 @@ class NewPost(BlogHandler):
     # creates a new post and redirects to the newpost page
     def post(self):
         if not self.user:
-            self.redirect('/blog')
+            self.redirect('/login')
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -305,24 +305,33 @@ class EditPost(BlogHandler):
             self.redirect('/blog')
 
         subject = self.request.get('subject')
-        content = self.request.get('content')
+        content = self.request.get('content').replace('\n', '<br>')
 
-        if subject and content:
+        if self.user:
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
-            post.subject = subject
-            post.content = content
-            post.put()
-            self.redirect('/blog/%s' % post_id)
+            if post.user_id == self.user.key().id():
+                if subject and content:
+                    key = db.Key.from_path('Post',
+                                           int(post_id), parent=blog_key())
+                    post = db.get(key)
+                    post.subject = subject
+                    post.content = content
+                    post.put()
+                    self.redirect('/blog/%s' % post_id)
+                else:
+                    error = "Enter both a subject and content"
+                    self.render("editpost.html", subject=subject,
+                                content=content, error=error)
         else:
-            error = "Enter both a subject and content"
-            self.render("editpost.html", subject=subject,
-                        content=content, error=error)
+            self.redirect("/blog/", post_id +
+                          "?error=You cannot update this comment.")
 
 class DeleteComment(BlogHandler):
     def get(self, post_id, comment_id):
         if self.user:
-            key = db.Key.from_path('Comment', int(comment_id), parent = blog_key())
+            key = db.Key.from_path('Comment',
+                    int(comment_id), parent = blog_key())
             c = db.get(key)
             if c.user_id == self.user.key().id():
                 c.delete()
@@ -350,16 +359,18 @@ class EditComment(BlogHandler):
 
     def post(self, post_id, comment_id):
         if not self.user:
-            self.redirect('/blog')
+            return self.redirect('/blog')
 
         comment = self.request.get('comment')
 
         if comment:
             key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
             c = db.get(key)
-            c.comment = comment
-            c.put()
-            self.redirect('/blog/%s' % post_id)
+            #make user is authorized
+            if c.user_id == self.user.key().id():
+                c.comment = comment
+                c.put()
+                self.redirect('/blog/%s' % post_id)
         else:
            self.redirect("/blog/" + post_id + "?error=You dont have access "
                               + "to edit this comment")

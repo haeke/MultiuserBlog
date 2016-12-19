@@ -9,7 +9,7 @@
         <form method="post">
             <input type="hidden" name="post_id" value="{{post_id}}">
             <div class="col-md-12">
-                <div class="form-group">
+                <div class="form-group text-center">
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" value="{{subject}}">
                 </div>
@@ -22,9 +22,10 @@
                     </div>
                     <div class="col-md-12">
                         <textarea name="content" id="content" value="{{content}}"
-                              cols="30" rows="10">{{content}}</textarea>
+                              cols="130" rows="10">{{content}}</textarea>
                     </div>
                 </div>
+
             </div>
 
             {% if error %}
@@ -33,8 +34,15 @@
                 {{error}}
             </div>
             {% endif %}
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <button class="center-block" type="submit">Submit</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="center-block" onclick="history.back()">Back</button>
+                </div>
+            </div>
 
-            <button type="submit">Submit</button>
         </form>
     </div>
 {% endblock %}
