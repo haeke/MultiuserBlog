@@ -127,6 +127,7 @@ class User(db.Model):
         if u and valid_pw(name, pw, u.pw_hash):
             return u
 
+
 # post model
 class Post(db.Model):
     user_id = db.IntegerProperty()
@@ -159,6 +160,7 @@ class Comment(db.Model):
         user = User.by_id(self.user_id)
         return user.name
 
+
 # Like model
 
 class Like(db.Model):
@@ -173,7 +175,7 @@ class Like(db.Model):
 class BlogFront(BlogHandler):
     def get(self):
         deleted_post_id = self.request.get('deleted_post_id')
-        posts = greetings = Post.all().order('-created')
+        posts = Post.all().order('-created')
         self.render('front.html', posts=posts, deleted_post_id=deleted_post_id)
 
 
@@ -206,10 +208,9 @@ class PostPage(BlogHandler):
 
         # create a new comment tuples for with the data of the users and post
         c = ""
-        if(self.user):
+        if self.user:
             # increase the like counter
-            if (self.request.get('like') and
-                        self.request.get('like') == "update"):
+            if self.request.get('like') and self.request.get('like') == "update":
                 likes = db.GqlQuery("select * from Like where post_id= " +
                                     post_id + " and user_id = " +
                                     str(self.user.key().id()))
@@ -224,7 +225,7 @@ class PostPage(BlogHandler):
                     like.put()
 
             # create a new tuple when you create a comment
-            if (self.request.get('comment')):
+            if self.request.get('comment'):
                 c = Comment(parent=blog_key(), user_id=self.user.key().id(),
                             post_id=int(post_id),
                             comment=self.request.get('comment'))
@@ -252,7 +253,7 @@ class NewPost(BlogHandler):
     # creates a new post and redirects to the newpost page
     def post(self):
         if not self.user:
-            self.redirect('/login')
+            return self.redirect('/login')
 
         subject = self.request.get('subject')
         content = self.request.get('content')
@@ -308,7 +309,8 @@ class EditPost(BlogHandler):
         content = self.request.get('content').replace('\n', '<br>')
 
         if self.user:
-            key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            key = db.Key.from_path('Post', int(post_id),
+                                   parent=blog_key())
             post = db.get(key)
             if post.user_id == self.user.key().id():
                 if subject and content:
@@ -327,11 +329,12 @@ class EditPost(BlogHandler):
             self.redirect("/blog/", post_id +
                           "?error=You cannot update this comment.")
 
+
 class DeleteComment(BlogHandler):
     def get(self, post_id, comment_id):
         if self.user:
             key = db.Key.from_path('Comment',
-                    int(comment_id), parent = blog_key())
+                                   int(comment_id), parent=blog_key())
             c = db.get(key)
             if c.user_id == self.user.key().id():
                 c.delete()
@@ -341,13 +344,15 @@ class DeleteComment(BlogHandler):
                 self.redirect("/blog/", post_id +
                               "?error=You dont have access to edit this comment.")
         else:
-            self.redirect("/login?error=You need to be logged in to delete your post")
+            self.redirect("/login?error=You need to be"
+                          + "logged in to delete your post")
 
 
 class EditComment(BlogHandler):
     def get(self, post_id, comment_id):
         if self.user:
-            key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
+            key = db.Key.from_path('Comment',
+                                   int(comment_id), parent=blog_key())
             c1 = db.get(key)
             if c1.user_id == self.user.key().id():
                 self.render("editcomment.html", comment=c1.comment)
@@ -363,17 +368,20 @@ class EditComment(BlogHandler):
 
         comment = self.request.get('comment')
 
-        if comment:
-            key = db.Key.from_path('Comment', int(comment_id), parent=blog_key())
-            c = db.get(key)
-            #make user is authorized
-            if c.user_id == self.user.key().id():
-                c.comment = comment
-                c.put()
-                self.redirect('/blog/%s' % post_id)
+        if self.user:
+            if comment:
+                key = db.Key.from_path('Comment',
+                                       int(comment_id), parent=blog_key())
+                c = db.get(key)
+                # make user is authorized
+                if c.user_id == self.user.key().id():
+                    c.comment = comment
+                    c.put()
+                    self.redirect('/blog/%s' % post_id)
         else:
-           self.redirect("/blog/" + post_id + "?error=You dont have access "
-                              + "to edit this comment")
+            self.redirect('/blog/' + post_id + "?error=You dont have access "
+                          + "to edit this comment")
+
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 
@@ -476,17 +484,17 @@ class Logout(BlogHandler):
 
 
 app = webapp2.WSGIApplication([
-                                ('/?', BlogFront),
-                                ('/blog/([0-9]+)', PostPage),
-                                ('/blog/newpost', NewPost),
-                                ('/blog/deletepost/([0-9]+)', DeletePost),
-                                ('/blog/editpost/([0-9]+)', EditPost),
-                                ('/blog/deletecomment/([0-9]+)/([0-9]+)',
-                                 DeleteComment),
-                                ('/blog/editcomment/([0-9]+)/([0-9]+)',
-                                 EditComment),
-                                ('/signup', Register),
-                                ('/login', Login),
-                                ('/logout', Logout),
-                                ],
-                            debug = True)
+    ('/?', BlogFront),
+    ('/blog/([0-9]+)', PostPage),
+    ('/blog/newpost', NewPost),
+    ('/blog/deletepost/([0-9]+)', DeletePost),
+    ('/blog/editpost/([0-9]+)', EditPost),
+    ('/blog/deletecomment/([0-9]+)/([0-9]+)',
+     DeleteComment),
+    ('/blog/editcomment/([0-9]+)/([0-9]+)',
+     EditComment),
+    ('/signup', Register),
+    ('/login', Login),
+    ('/logout', Logout),
+],
+    debug=True)
