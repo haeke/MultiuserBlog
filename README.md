@@ -16,7 +16,7 @@ To run this program you can use the link https://blogger231uda535city.appspot.co
  
  1. Install Python version 2.7
  2. Install Google App Engine
- 3. Import the project into Google App Engine; clone the project use git clone https://github.com/waehake/anotherone.git
+ 3. Import the project into Google App Engine; clone the project use git clone https://github.com/haeke/MultiUserBlog.git
 
 # Features:
  - Bootstrap for a responsive layout for better site compatibility between different devices.
